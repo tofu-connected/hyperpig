@@ -1,0 +1,20 @@
+.share-wrap {
+    position: absolute;
+    z-index: 2000;
+}
+.share-wrap svg  {
+    width: 30px;
+    filter: drop-shadow(0 0 1px rgb(32 25 37 / 0.4)) drop-shadow(-1px -1px 2px rgb(32 25 37 / 0.4));
+}
+@media (min-width: 650px) {
+    .share-wrap {
+        top: 25px;
+        right: 30px;
+    }
+}
+@media (max-width: 650px) { 
+    .share-wrap {
+        top: 15px;
+        right: 15px;
+    }
+}

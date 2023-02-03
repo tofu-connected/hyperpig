@@ -1,0 +1,18 @@
+.image-ratio {
+    position: absolute;
+    line-height: 100%;
+    font-size: 14px;
+}
+
+@media (min-width: 650px) {
+    .image-ratio {
+        top: 30px;
+        left: 30px;
+    }
+}
+@media (max-width: 650px) { 
+    .image-ratio {
+        top: 15px;
+        left: 15px;
+    }
+}

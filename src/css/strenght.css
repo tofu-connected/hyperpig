@@ -1,0 +1,31 @@
+.change-strength {
+    align-items: center;  
+    display: flex;
+    flex-grow: 1;
+}
+
+@media (min-width: 960px) {
+    .change-strength {
+        padding-right: 30px;
+    }
+}
+@media (min-width: 650px) {
+    .change-strength {
+        gap: 15px;
+    }
+    .chosen-image {
+        aspect-ratio: 16/9;
+    }
+}
+@media (max-width: 650px) {
+    .change-strength {
+        gap: 5px;
+        align-items: flex-start;
+    }
+    .chosen-image {
+        aspect-ratio: 1/1;
+    }
+}
+.change-strength input {
+    flex-grow: 1;
+}

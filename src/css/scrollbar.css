@@ -1,0 +1,29 @@
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;    
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--purple-color);
+    width: 10px;
+    -webkit-border-radius: 4px;
+    -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
+}
+
+::-webkit-scrollbar-corner {
+    background: #000;
+}
+
+.light-theme ::-webkit-scrollbar{
+    background: linear-gradient(to right, var(--white-color) 20%, var(--grey-color) 20% 80%, var(--white-color) 80%);
+}
+.dark-theme ::-webkit-scrollbar {
+    background: linear-gradient(to right, var(--dark-purple-color) 20%, var(--grey-color) 20% 80%, var(--dark-purple-color) 80%);
+}
+.light-theme ::-webkit-scrollbar {
+    background: linear-gradient(to right, var(--white-color) 20%, var(--grey-color) 20% 80%, var(--white-color) 80%);
+}
+.dark-theme ::-webkit-scrollbar:horizontal {
+    background: linear-gradient(to bottom, var(--dark-purple-color) 20%, var(--grey-color) 20% 80%, var(--dark-purple-color) 80%);
+}

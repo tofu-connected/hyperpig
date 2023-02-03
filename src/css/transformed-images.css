@@ -1,0 +1,204 @@
+.transformed-images {     
+    z-index: 10;
+    
+}
+@media (min-width: 960px) {
+    .transformed-images {
+        max-width: 100%;
+    }
+} 
+@media (max-width: 960px) {
+    .transformed-images {
+        max-width: 95%;
+    }
+}
+@media (min-width: 650px) {
+    .transformed-images {
+        grid-area: transformed;
+        max-height: calc(var(--my-max-height) - 22px);
+    }    
+}
+@media (max-width: 650px) {
+    .transformed-images {
+        max-height: calc(var(--small-max-height) - 35px);
+    }
+}
+
+.transformed-images::before {
+    border-radius: 7px;
+    border: var(--dark-purple-color) 8px solid;
+    bottom: 3px;
+    content: "";
+    left: 3px;    
+    pointer-events: none;
+    position: absolute;
+    top: 3px;
+    z-index: 2000;
+}
+
+.images-pool {
+    overflow-y: scroll;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    position: relative;  
+    scroll-snap-type: y mandatory;
+    scroll-padding-top: 3px;
+}
+
+@media (min-width: 650px) {
+    .image-style-wrap::before {
+        border-radius: 7px;
+        border: var(--dark-purple-color) 8px solid;
+        bottom: 3px;
+        content: "";
+        left: 3px;    
+        pointer-events: none;
+        position: absolute;
+        top: 3px;
+    } 
+    .image-style-wrap::after  {
+        border-radius: 10px;
+        border: var(--white-color) var(--main-border-width) solid;
+        bottom: 0;
+        content: "";
+        left: 0;
+        pointer-events:none;
+        position: absolute;
+        top: 0;
+    } 
+    
+}
+@media (max-width: 650px) {
+    .image-style-wrap::before, .transformed-images::before {
+        right: 3px;
+    }
+    .image-style-wrap::after, .transformed-images::after {
+        right: 0;
+    }
+}
+@media (min-width: 960px) { 
+    .image-style-wrap::before, .transformed-images::before {
+        right: 20px; 
+    } 
+    .image-style-wrap::after, .transformed-images::after {
+        right: var(--scroll-padding-width-thin);
+    }
+}
+@media (min-width: 650px) and (max-width: 960px) {
+    .image-style-wrap::before {
+        right: 3px;
+    }
+    .image-style-wrap::after{
+        right: 0;
+    }    
+    .transformed-images::before  {
+        right: 20px;
+    }
+    .transformed-images::after{
+        right: var(--scroll-padding-width-thin);
+    }
+    
+}
+.transformed-images::after {
+    border-radius: 10px;
+    border: var(--white-color) var(--main-border-width) solid;
+    bottom: 0;
+    content: "";
+    left: 0;
+    pointer-events:none;
+    position: absolute;
+    top: 0;
+    z-index: 2000;
+}
+@media (min-width: 650px) {
+    .images-pool, .transformed-images {
+        aspect-ratio: 16/9;
+    }
+    
+}
+@media (max-width: 650px) {    
+    .images-pool {
+        height: 100%;
+    }
+}
+.img-wrap {    
+    align-items: center;  
+    cursor: pointer;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+    padding-bottom: 11px;
+    padding-left: 11px;    
+    padding-right: 11px;
+    padding-top: 11px;
+    position: relative;
+    scroll-snap-align: start;
+    transition: all 0.2s ease;
+}
+
+@media (min-width: 650px){
+    .img-wrap {
+        aspect-ratio: 16/9;
+        height: auto;     
+        max-width: 100%;
+        max-height: calc(var(--my-max-height) + 10px); /*не удалять, разрастется)*/
+        
+    }    
+}
+.notvertical img {
+    height: auto;     
+    max-width: 100%;
+}
+.vertical img {
+    max-height: 100%;
+    width: auto; 
+}
+@media (max-width: 650px) {
+    .img-wrap {
+        height: 100%;
+        max-height: 100%;
+        width: 100%;
+    }    
+}
+.img-wrap svg {
+    max-height: 100%;
+    max-width: 100%;
+    display: block;
+}
+.img-wrap label svg {
+    height: 70px;
+}
+.empty svg {
+    transition: fill 0.2s ease-in-out;    
+}
+.empty:active svg, .empty:hover svg {
+    fill: darkgrey;
+    transition: fill 0.2s ease-in-out;
+}
+.empty label {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 6px;
+    right: 3px;
+    top: 3px;
+    bottom: -7px;
+}
+.empty input {
+    position: absolute;
+    opacity: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+.img-wrap img {    
+    border-radius: var(--big-border-radius);
+}
+.share-wrap + a, .share-wrap + a>div {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

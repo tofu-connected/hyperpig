@@ -1,0 +1,32 @@
+.final-settings {
+    align-items: center;
+    display: flex;
+    flex-shrink: 0;    
+    grid-area: final;
+}
+
+@media (max-width: 960px) {
+    .final-settings {
+        max-width: 95%;
+        width: 95%;
+    }
+}
+@media (min-width: 650px) {
+    .final-settings {
+        gap: 20px;
+        align-self: start;
+    }
+}
+.go {    
+    flex-grow: 0;
+}
+@media (min-width: 650px) {
+    .go {
+        padding: 5px 30px;
+    }    
+}
+@media (max-width: 650px) {
+    .final-settings {
+        gap: 5px;
+    }   
+}

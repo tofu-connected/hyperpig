@@ -4,8 +4,8 @@ import useDarkMode from '@fisch0920/use-dark-mode';
 import { globalCss } from '@nextui-org/react';
 
 import Header from './components/Header';
-import Transformed from './components/Transformed/Transformed.js';
-import Finalsettings from './components/FinalSettings/Finalsettings';
+import CreatedImagesGallery from './components/CreatedImagesGallery/CreatedImagesGallery.js';
+import GenerationSettings from './components/GenerationSettings/GenerationSettings';
 import Imagestyles from './components/ImageStyles/Imagestyles';
 
 
@@ -23,8 +23,8 @@ function App() {
       <div className="body"> 
         <div className="wrapper">
           <Header />
-          <Transformed />
-          <Finalsettings />
+          <CreatedImagesGallery />
+          <GenerationSettings />
           <Imagestyles />
         </div>  
       </div>

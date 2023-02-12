@@ -1,8 +1,8 @@
 import { Button, Switch } from '@nextui-org/react';
 import useDarkMode from '@fisch0920/use-dark-mode';
 
-import { SunIcon } from './Buttonsplus/SunIcon.js';
-import { MoonIcon } from './Buttonsplus/MoonIcon.js';
+import { SunIcon } from './ButtonsAndIcons/SunIcon.js';
+import { MoonIcon } from './ButtonsAndIcons/MoonIcon.js';
 import logo from '../logo.svg';
 
 

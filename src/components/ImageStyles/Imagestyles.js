@@ -1,9 +1,9 @@
 import { Tooltip, Link, Text } from "@nextui-org/react";
 
-import { ChooseStyle } from "../Tooltipsplus/ChooseStyle";
-import Cards from "./Cards";
+import { ChooseStyle } from "../TooltipsAndPopovers/ChooseStyle";
+import StyleCards from "./StyleCards";
 
-const Imagestyles = () => {
+const ImageStyles = () => {
     return (
         <div className="image-style">
             
@@ -17,11 +17,11 @@ const Imagestyles = () => {
                 </Tooltip>
             </div>
         <div className="image-style-wrap">            
-            <Cards />
+            <StyleCards />
         </div>    
         
         </div>
     )
 }
 
-export default Imagestyles
+export default ImageStyles

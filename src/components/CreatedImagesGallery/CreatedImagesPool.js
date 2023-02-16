@@ -1,3 +1,4 @@
+import { ChangeEvent, useState } from 'react';
 import { AddImageIcon } from "../ButtonsAndIcons/AddImageIcon.js";
 import ImageContainer from "./ImageContainer.js";
 
@@ -8,6 +9,7 @@ function importAll(r) {
 }
 
 const images = importAll(require.context("../../img", false, /\.(png|jpe?g|svg)$/));
+
 
 const CreatedImagesPool = () => {
     const list = [{
@@ -21,13 +23,22 @@ const CreatedImagesPool = () => {
         orientation: "notvertical"
     }
     ]
+    /*Load File*/
+const [file, setFile] = useState();
+
+const handleFileChange = (e) => {
+    console.log(e.target.files);
+    setFile(URL.createObjectURL(e.target.files[0]));
+};
+
     return (
         <div className="images-pool">
             <div className="img-wrap empty">
                 <label htmlFor="uploadimage">
-                    <AddImageIcon />
-                    <input type="file" name="uploadimage" accept="image/png, image/gif, image/jpeg" />
+                    <AddImageIcon onClick={handleFileChange}/>
+                    <input type="file" onChange={handleFileChange} name="uploadimage" accept="image/png, image/gif, image/jpeg" />
                 </label>
+                <img class="loaded-image" src={file} />
             </div>
             {list.map((item, index) => {
                 return (
@@ -37,4 +48,4 @@ const CreatedImagesPool = () => {
         </div>
     )
 }
-export default CreatedImagesPool
+export default CreatedImagesPool;

@@ -145,6 +145,18 @@
         
     }    
 }
+.loaded-image {
+    z-index: 1000;    
+    max-height: 100%;
+    margin: auto;
+    pointer-events: none;
+}
+.dark-theme .loaded-image {
+    background-color: var(--dark-purple-color);
+}
+.light-theme .loaded-image {
+    background-color: var(--white-color);
+}
 .notvertical img {
     height: auto;     
     max-width: 100%;
@@ -186,6 +198,7 @@
     bottom: -7px;
 }
 .empty input {
+    cursor: pointer;
     position: absolute;
     opacity: 0;
     left: 0;

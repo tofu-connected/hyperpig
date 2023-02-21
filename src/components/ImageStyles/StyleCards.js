@@ -1,98 +1,43 @@
-function importAll(r) {
-    let images = {};
-    r.keys().map((item) => ( images[item.replace('./', '')] = r(item) ));
-    return images;
-}
-const images = importAll(require.context('../../img', false, /\.(png|jpe?g|svg)$/));
+import { useState, useEffect } from 'react';
+
+//7ab3fcf5
+const API_URL = 'http://omdbapi.com?apikey=7ab3fcf5';
+
 
 const StyleCards = () => {
-    const list = [
-        {
-            title: "Cat",
-            src: images["1.png"]
-        },
-        {
-            title: "Dog",
-            src: images["2.jpg"]
-        },
-        {
-            title: "Pig",
-            src: images["3.jpg"]
-        },
-        {
-            title: "Fox",
-            src: images["4.jpg"]
-        },
-        {
-            title: "Wolf",
-            src: images["5.jpg"]
-        },
-        {
-            title: "Hammer",
-            src: images["6.png"]
-        },
-        {
-            title: "Mouse",
-            src: images["7.png"]
-        },
-        {
-            title: "Cow",
-            src: images["8.png"]
-        },
-        {
-            title: "Panda",
-            src: images["9.jpg"]
-        },
-        {
-            title: "Bunny",
-            src: images["10.png"]
-        },
-        {
-            title: "Teddy",
-            src: images["11.jpg"]
-        },
-        {
-            title: "Hog",
-            src: images["12.png"]
-        },
-        {
-            title: "Coyote",
-            src: images["13.jpg"]
-        },
-        {
-            title: "Bug",
-            src: images["14.jpg"]
-        },
-        {
-            title: "Spider",
-            src: images["15.jpg"]
-        },
-        {
-            title: "Bird",
-            src: images["16.jpg"]
-        },
-        {
-            title: "Fish",
-            src: images["17.png"]
-        },
-        {
-            title: "Bacteria178908989",
-            src: images["18.jpg"]
-        },
-    ];
+    const [cards, setCards] = useState([]);
+    
+    //USING OMDB API
+    const searchMovies = async (title) => {
+        const response = await fetch(`${API_URL}&s=${title}`)
+        const data = await response.json();
+        setCards(data.Search);
+    }
+    useEffect(() => {
+        searchMovies('Cyber');
+    }, []);
+
+    const [activeId, setActiveId] = useState();
+
     return (
         <div className="image-style-list">
-            {list.map((item, index) => (
-                <div key={index}  className="image-cutter">
-                <div className="style-card">
-                    <img src={item.src} alt=""/>
-                    <div className="style-card-name">
-                        {item.title}
-                    </div>
-                </div>
-            </div>
-                
-            ))}
+            {
+                cards?.length > 0 ? (
+                    cards.map((item) => (
+                        <div key={item.imdbID} className='image-cutter '>
+                            <div onClick={() => setActiveId(item.imdbID)}
+                                className={`style-card ${activeId === item.imdbID ? "active" : "inactive"}`}
+                                
+                            >
+                                <img src={item.Poster !== 'N/A' ? item.Poster : 'https://via.placeholder.com/200'} alt={item.Year} />
+                                <div className="style-card-name">
+                                    {item.Title}
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                ):(<p>Something went wrong. No Styles!</p>)
+            }
         </div>
     )
 }

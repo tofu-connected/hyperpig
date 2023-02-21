@@ -139,6 +139,7 @@
 @media (min-width: 650px){
     .img-wrap {
         aspect-ratio: 16/9;
+        padding: 11px 22px 11px 11px;
         height: auto;     
         max-width: 100%;
         max-height: calc(var(--my-max-height) + 10px); /*не удалять, разрастется)*/

@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 import { AddImageIcon } from "../ButtonsAndIcons/AddImageIcon.js";
 import ImageContainer from "./ImageContainer.js";
 
@@ -24,12 +24,11 @@ const CreatedImagesPool = () => {
     }
     ]
     /*Load File*/
-const [file, setFile] = useState();
+    const [file, setFile] = useState();
 
-const handleFileChange = (e) => {
-    console.log(e.target.files);
-    setFile(URL.createObjectURL(e.target.files[0]));
-};
+    const handleFileChange = (e) => {
+        setFile(URL.createObjectURL(e.target.files[0]));
+    };
 
     return (
         <div className="images-pool">
@@ -38,7 +37,7 @@ const handleFileChange = (e) => {
                     <AddImageIcon onClick={handleFileChange}/>
                     <input type="file" onChange={handleFileChange} name="uploadimage" accept="image/png, image/gif, image/jpeg" />
                 </label>
-                <img class="loaded-image" src={file} />
+                <img className="loaded-image" src={file} />
             </div>
             {list.map((item, index) => {
                 return (

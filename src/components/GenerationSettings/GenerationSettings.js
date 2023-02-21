@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Button, Tooltip, Link, Text, Image } from '@nextui-org/react';
 
 import { ChangeStrength } from '../TooltipsAndPopovers/ChangeStrength.js';
@@ -6,6 +7,8 @@ import { AddImageChosenIcon } from '../ButtonsAndIcons/AddImageChosenIcon';
 import MyImage from '../../img/1.png';
 
 function GenerationSettings() {
+    const [strength, setStrength] = useState(500);
+    
     return (
         <div className="final-settings">
             <div className="chosen-image">
@@ -24,7 +27,7 @@ function GenerationSettings() {
                         <Text color="secondary">STRENGTH</Text>
                     </Link>
                 </Tooltip>
-                <input type="range" name="strentgh" id="strength" />
+                <input type="range" name="strength" id="strength" min="0" max="1000" onChange={(e) => setStrength(e.target.value)} title={strength} value={strength}/>
                 <Button color="secondary" auto rounded>GO!</Button>
             </div>
         </div>

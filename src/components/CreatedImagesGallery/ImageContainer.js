@@ -1,17 +1,17 @@
-import React from 'react'
-import { Modal, Image, Link, Button, Popover}from '@nextui-org/react'
-import { Share } from '../TooltipsAndPopovers/Share'
-import { ShareIcon } from "../ButtonsAndIcons/ShareIcon.js";
+import { useState } from 'react';
+import { Modal, Image, Link, Button, Popover } from '@nextui-org/react';
+import { Share } from '../TooltipsAndPopovers/Share';
+import { ShareIcon } from '../ButtonsAndIcons/ShareIcon.js';
 
-const ImageContainer = props => {
-    const [visible, setVisible] = React.useState(false);
-    const handler = () => setVisible(true);
+const ImageContainer = ({orient, src, prompt}) => {
+    const [visible, setVisible] = useState(false);
+    const openHandler = () => setVisible(true);
     
     const closeHandler = () => {
         setVisible(false);
     };
     return (
-        <div className={"img-wrap " +  props.orient }>
+        <div className={"img-wrap " +  orient }>
             <div className="share-wrap">
                 <Popover placement={'left-top'}>
                     <Popover.Trigger>
@@ -22,9 +22,9 @@ const ImageContainer = props => {
                     </Popover.Content>
                 </Popover>
             </div>
-            <Link css={{ '&:hover': { "opacity": 1 } }} onPress={handler}><Image src={props.src} alt={props.prompt} /></Link>
+            <Link css={{ '&:hover': { "opacity": 1 } }} onPress={openHandler}><Image src={src} alt={prompt} /></Link>
             <Modal width="90%" noPadding open={visible} onClose={closeHandler}>
-                <Image css={{height: "auto", maxHeight: "90vh", objectFit: "scale-down"}} src={props.src} alt={props.prompt} />
+                <Image css={{height: "auto", maxHeight: "90vh", objectFit: "scale-down"}} src={src} alt={prompt} />
             </Modal>
         </div>
     )

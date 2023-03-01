@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 
-//7ab3fcf5
 const API_URL = 'http://omdbapi.com?apikey=7ab3fcf5';
-
 
 const StyleCards = () => {
     const [cards, setCards] = useState([]);

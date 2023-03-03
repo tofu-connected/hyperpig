@@ -7,6 +7,7 @@ import Header from './components/Header';
 import CreatedImagesGallery from './components/CreatedImagesGallery/CreatedImagesGallery.js';
 import GenerationSettings from './components/GenerationSettings/GenerationSettings';
 import Imagestyles from './components/ImageStyles/Imagestyles';
+import { useState } from 'react';
 
 const globalStyles = globalCss({
   body: { letterSpacing: "0.3px" },

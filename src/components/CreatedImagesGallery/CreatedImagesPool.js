@@ -23,7 +23,7 @@ const CreatedImagesPool = () => {
         orientation: "notvertical"
     }
     ]
-    /*Load File*/
+    /*Upload File*/
     const [file, setFile] = useState();
 
     const handleFileChange = (e) => {

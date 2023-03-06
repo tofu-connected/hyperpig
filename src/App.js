@@ -8,14 +8,6 @@ import CreatedImagesGallery from './components/CreatedImagesGallery/CreatedImage
 import GenerationSettings from './components/GenerationSettings/GenerationSettings';
 import Imagestyles from './components/ImageStyles/Imagestyles';
 
-/* const appState = {
-  sourceImage: null,
-  strength: 0.0,
-  goOnClick: () => {
-
-  }
-} */
-
 const globalStyles = globalCss({
   body: { letterSpacing: "0.3px" },
   button: {letterSpacing: "0.5px"},

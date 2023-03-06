@@ -5,7 +5,6 @@ import useRange from '../../hooks/useRange.js';
 import { ChangeStrength } from '../TooltipsAndPopovers/ChangeStrength.js';
 import { UploadImage } from '../TooltipsAndPopovers/UploadImage';
 import { AddImageChosenIcon } from '../ButtonsAndIcons/AddImageChosenIcon';
-import MyImage from '../../img/1.png';
 
 function GenerationSettings() {
     const state = {
@@ -48,12 +47,16 @@ function GenerationSettings() {
     return (
         <div className="final-settings">
             <div className="chosen-image">
-                <Tooltip trigger="hover" placement="topStart" content={<UploadImage />}>
-                    <Image {...state._imgRef.initialValue} alt="" ref={state._imgRef} />
-                </Tooltip>
-                <div className="chosen-image-hover">
+                <Tooltip trigger="hover" placement="topStart" content={<UploadImage mysrc = { file } />}>
+                    <Image src = { file } alt="" ref={ imgRef } />
+                
+                <div className="chosen-image-hover" onClick={handleFileChange}>
                     <AddImageChosenIcon />
                 </div>
+                <label htmlFor="uploadimage-button">
+                    <input type="file" onChange={handleFileChange} name="uploadimage-button" accept="image/png, image/gif, image/jpeg"/>
+                </label>
+                </Tooltip>
             </div>
             <div className="change-strength">
                 <Tooltip
@@ -63,8 +66,8 @@ function GenerationSettings() {
                         <Text color="secondary">STRENGTH</Text>
                     </Link>
                 </Tooltip>
-                <input type="range" name="strength" id="strength" min="0" max="1000" {...state._strengthRef.initialValue} ref={state._strengthRef} />
-                <Button color="secondary" auto rounded onPress={state.goOnPress}>GO!</Button>
+                <input type="range" min="0" max="1000" {...strength} ref={strengthRef} />
+                <Button color="secondary" auto rounded onPress={onPressGo}>GO!</Button>
             </div>
         </div>
     );

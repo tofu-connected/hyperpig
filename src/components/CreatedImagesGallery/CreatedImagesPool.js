@@ -23,7 +23,7 @@ const CreatedImagesPool = () => {
         orientation: "notvertical"
     }
     ]
-    /*Upload File*/
+    /*Load File*/
     const [file, setFile] = useState();
 
     const handleFileChange = (e) => {
@@ -37,7 +37,7 @@ const CreatedImagesPool = () => {
                     <AddImageIcon onClick={handleFileChange}/>
                     <input type="file" onChange={handleFileChange} name="uploadimage" accept="image/png, image/gif, image/jpeg" />
                 </label>
-                <img className="loaded-image" alt ="" src={file} />
+                <img className="loaded-image" src={file} />
             </div>
             {list.map((item, index) => {
                 return (

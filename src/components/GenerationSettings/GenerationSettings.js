@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Button, Tooltip, Link, Text, Image, normalColors } from '@nextui-org/react';
+import { Button, Tooltip, Link, Text, Image } from '@nextui-org/react';
 
 import useRange from '../../hooks/useRange.js';
 import { ChangeStrength } from '../TooltipsAndPopovers/ChangeStrength.js';
@@ -8,48 +8,37 @@ import { AddImageChosenIcon } from '../ButtonsAndIcons/AddImageChosenIcon';
 import MyImage from '../../img/1.png';
 
 function GenerationSettings() {
-    const state = {
-        get sourceImage() {
-            return state._imgRef.current.src;
-        },
-        get strength() {
-            return state._strengthRef.current.value;
-        },
-        async goOnPress() {
-            try {
-                // get an image selected by user 
-                let response = await fetch(MyImage); // TODO: does not work (sends default image for now)
-                const imageBlob = await response.blob();
+    const strengthRef = useRef(null);
+    const imgRef = useRef(MyImage);
 
-                // make a request to a backend server, result image is returned in response
-                const query = new URLSearchParams({ prompt: 'beautiful man', strength: '0.6' }).toString();
-                response = await fetch(`http://localhost:5000/?${query}`, {
-                    // mode: 'no-cors',
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'image/png',
-                        'Content-Length': imageBlob.length,
-                    },
-                    body: imageBlob,
-                });
+    const goOnPress = async () => {
+        // get an image selected by user 
+        let response = await fetch(MyImage); // TODO: does not work (sends default image for now)
+        const imageBlob = await response.blob();
 
-                const data = await response.json();
+        // make a request to a backend server, result image is returned in response
+        const query = new URLSearchParams({ prompt: 'beautiful man', strength: '0.6' }).toString();
+        response = await fetch(`http://localhost:5000/?${query}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'image/png',
+                'Content-Length': imageBlob.length,
+                'Cache-Control': 'no-cache',
+            },
+            body: imageBlob,
+        });
 
-                /* TODO: handle returned image */
-                
-            } catch (error) {
-                console.error(error);
-            }
-        },
-        _strengthRef: useRef(null),
-        _imgRef: useRef(MyImage),
+        /* TODO: handle returned image */
+        const outputBlob = await response.blob();
+
+        console.log(outputBlob);
     };
 
     return (
         <div className="final-settings">
             <div className="chosen-image">
                 <Tooltip trigger="hover" placement="topStart" content={<UploadImage />}>
-                    <Image {...state._imgRef.initialValue} alt="" ref={state._imgRef} />
+                    <Image {...imgRef.initialValue} alt="" ref={imgRef} />
                 </Tooltip>
                 <div className="chosen-image-hover">
                     <AddImageChosenIcon />
@@ -63,11 +52,11 @@ function GenerationSettings() {
                         <Text color="secondary">STRENGTH</Text>
                     </Link>
                 </Tooltip>
-                <input type="range" name="strength" id="strength" min="0" max="1000" {...state._strengthRef.initialValue} ref={state._strengthRef} />
-                <Button color="secondary" auto rounded onPress={state.goOnPress}>GO!</Button>
+                <input type="range" name="strength" id="strength" min="0" max="1000" {...strengthRef.initialValue} ref={strengthRef} />
+                <Button color="secondary" auto rounded onPress={goOnPress}>GO!</Button>
             </div>
         </div>
     );
 }
 
-export default GenerationSettings
+export default GenerationSettings;

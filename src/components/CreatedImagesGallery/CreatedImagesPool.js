@@ -1,43 +1,17 @@
-import { useState } from 'react';
-import { AddImageIcon } from "../ButtonsAndIcons/AddImageIcon.js";
-import ImageContainer from "./ImageContainer.js";
+import { AddImageIcon } from '../ButtonsAndIcons/AddImageIcon';
+import ImageContainer from './ImageContainer';
 
-function importAll(r) {
-    let images = {};
-    r.keys().map((item) => (images[item.replace('./', '')] = r(item)));
-    return images;
-}
-
-const images = importAll(require.context("../../img", false, /\.(png|jpe?g|svg)$/));
-
-
-const CreatedImagesPool = () => {
-    const list = [{
-        prompt: "military angel relaxing in a bingbag",
-        src: images["6.png"],
-        orientation: "vertical"
-    },
-    {
-        prompt: "boom glashing eyes colorful head",
-        src: images["13.jpg"],
-        orientation: "notvertical"
-    }
-    ]
-    /*Upload File*/
-    const [file, setFile] = useState();
-
-    const handleFileChange = (e) => {
-        setFile(URL.createObjectURL(e.target.files[0]));
-    };
+const CreatedImagesPool = ({list, onFileChange, selectedFileUrl, fileName}) => {
+    
 
     return (
         <div className="images-pool">
             <div className="img-wrap empty">
                 <label htmlFor="uploadimage">
-                    <AddImageIcon onClick={handleFileChange}/>
-                    <input type="file" onChange={handleFileChange} name="uploadimage" accept="image/png, image/gif, image/jpeg" />
+                    <AddImageIcon/>
+                    <input type="file" onChange={onFileChange} title={fileName}name="uploadimage" accept="image/png, image/gif, image/jpeg" />
                 </label>
-                <img className="loaded-image" src={file} />
+                <img className="loaded-image" alt="" src={selectedFileUrl} />
             </div>
             {list.map((item, index) => {
                 return (

@@ -1,21 +1,12 @@
-import { useState, useRef } from 'react';
-import { Button, Tooltip, Link, Text, Image } from '@nextui-org/react';
+import ChosenImage from './ChosenImage';
+import StrengthSettings from './StrengthSettings';
+import Go from './Go';
 
-import useRange from '../../hooks/useRange.js';
-import { ChangeStrength } from '../TooltipsAndPopovers/ChangeStrength.js';
-import { UploadImage } from '../TooltipsAndPopovers/UploadImage';
-import { AddImageChosenIcon } from '../ButtonsAndIcons/AddImageChosenIcon';
-
-function GenerationSettings() {
-    const strengthRef = useRef(null);
-    const imgRef = useRef(null);
-
-    const [file, setFile] = useState();
-
+const GenerationSettings = ({ onFileChange, selectedFileUrl, fileName, onStrength, strength,  onPress }) => { 
     const goOnPress = async () => {
         // get an image selected by user 
-        console.log(file);
-        let response = await fetch(file); // TODO: does not work (sends default image for now)
+        console.log(selectedFileUrl);
+        let response = await fetch(selectedFileUrl); // TODO: does not work (sends default image for now)
         const imageBlob = await response.blob();
 
         // make a request to a backend server, result image is returned in response
@@ -33,39 +24,14 @@ function GenerationSettings() {
         /* TODO: handle returned image */
         const outputBlob = await response.blob();
         //window.activeImg = 'test'
-        setFile(URL.createObjectURL(outputBlob));
-        console.log(file);
+        setSelectedFileUrl(URL.createObjectURL(outputBlob));
+        console.log(selectedFileUrl);
     };
-
-    const handleFileChange = (e) => {
-        setFile(URL.createObjectURL(e.target.files[0]));
-    };
-
     return (
         
         <div className="final-settings">
-            <div className="chosen-image">
-                <Tooltip trigger="hover" placement="topStart" content={<UploadImage />}>
-                    <Image {...imgRef.initialValue} alt="" ref={imgRef} src={file} />
-                </Tooltip>
-                <div className="chosen-image-hover">
-                    <AddImageChosenIcon />
-                </div>
-                <label htmlFor="uploadimage-button">
-                    <input type="file" onChange={handleFileChange} name="uploadimage-button" accept="image/png, image/gif, image/jpeg"/>
-                </label>
-            </div>
-            <div className="change-strength">
-                <Tooltip
-                    trigger="hover"
-                    placement="topStart" content={<ChangeStrength />}>
-                    <Link css={{ '@xs': { height: "20px", } }}>
-                        <Text color="secondary">STRENGTH</Text>
-                    </Link>
-                </Tooltip>
-                <input type="range" name="strength" id="strength" min="0" max="1000" {...strengthRef.initialValue} ref={strengthRef} />
-                <Button color="secondary" auto rounded onPress={goOnPress}>GO!</Button>
-            </div>
+            <ChosenImage onFileChange={onFileChange} selectedFileUrl={selectedFileUrl} fileName={fileName} />            
+            <StrengthSettings  onStrength = { onStrength } strength = {strength}><Go onPress={ onPress } /></StrengthSettings>
         </div>
     );
 }

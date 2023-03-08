@@ -27,7 +27,7 @@ function App(props) {
   const onStrengthChange = (e) => {
     setStrength(e.target.value)
   }
-  
+
   const [selectedFileUrl, setSelectedFileUrl] = useState();
   const [fileName, setFileName] = useState('Choose File');
 
@@ -35,13 +35,39 @@ function App(props) {
     if (e.target.files.length !== 0) {
       const file = e.target.files[0];
       setSelectedFileUrl(URL.createObjectURL(file));
-      setFileName(file.name);      
+      setFileName(file.name);
     }
   };
 
-  const onPressGo = () => {
+  const onPressGo = async () => {   
+
+    // get an image selected by user 
+    console.log(selectedFileUrl);
+    let response = await fetch(selectedFileUrl); // TODO: does not work (sends default image for now)
+    const imageBlob = await response.blob();
+
+    // make a request to a backend server, result image is returned in response
+    const query = new URLSearchParams({ prompt: 'cartoon dragon', strength: '0.7' }).toString();
+    response = await fetch(`http://localhost:5000/?${query}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'image/png',
+        'Content-Length': imageBlob.length,
+        'Cache-Control': 'no-cache',
+      },
+      body: imageBlob,
+    });
+
+    /* TODO: handle returned image */
+    const outputBlob = await response.blob();
+    //window.activeImg = 'test'
+    setSelectedFileUrl(URL.createObjectURL(outputBlob));
+    console.log(selectedFileUrl);
+
+    //partytestdata
     console.log(`Go is pressed & the value of strength is ${strength} and selectedfileUrl ${selectedFileUrl}`);
-  }
+  };
+
   return (
     <NextUIProvider theme={darkMode.value ? darkTheme : lightTheme}>
       <div className="body">

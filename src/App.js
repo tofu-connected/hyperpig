@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NextUIProvider } from '@nextui-org/react';
 import { darkTheme, lightTheme } from './components/Themes';
 import useDarkMode from '@fisch0920/use-dark-mode';
@@ -8,6 +8,7 @@ import Header from './components/Header';
 import CreatedImagesGallery from './components/CreatedImagesGallery/CreatedImagesGallery.js';
 import GenerationSettings from './components/GenerationSettings/GenerationSettings';
 import Imagestyles from './components/ImageStyles/Imagestyles';
+const API_URL = 'http://omdbapi.com?apikey=7ab3fcf5';
 
 const globalStyles = globalCss({
   body: { letterSpacing: "0.3px" },
@@ -18,11 +19,7 @@ function App(props) {
 
   const darkMode = useDarkMode(false);
   globalStyles();
-
-  const addSaveHandler = file => {
-    console.log('In App Js');
-    console.log(file);
-  }
+  
   const [strength, setStrength] = useState(500);
   const onStrengthChange = (e) => {
     setStrength(e.target.value)
@@ -39,7 +36,29 @@ function App(props) {
     }
   };
 
-  const onPressGo = async () => {   
+  //Image Styles
+  const [cards, setCards] = useState([]);
+
+    //using OMDB API
+  const searchMovies = async (title) => {
+    const response = await fetch(`${API_URL}&s=${title}`)
+    const data = await response.json();
+    setCards(data.Search);
+  }
+  useEffect(() => {
+    searchMovies('Cyber');
+  }, []);  
+  const [activeId, setActiveId] = useState();
+  const [activeName, setActiveName] = useState();
+
+  const addActive = (id, name) => {
+    setActiveId(id);
+    setActiveName(name);
+    console.log(`activeId ${id} name ${name}`);
+  }
+  //End Image Styles
+
+  const onPressGo = async () => {
 
     // get an image selected by user 
     console.log(selectedFileUrl);
@@ -74,8 +93,8 @@ function App(props) {
         <div className="wrapper">
           <Header />
           <CreatedImagesGallery selectedFileUrl={selectedFileUrl} fileName={fileName} onFileChange={fileChange} />
-          <GenerationSettings selectedFileUrl={selectedFileUrl} fileName={fileName} onFileChange={fileChange} onStrength={onStrengthChange} strength={strength} onSaveFile={addSaveHandler} onPress={onPressGo} />
-          <Imagestyles />
+          <GenerationSettings selectedFileUrl={selectedFileUrl} fileName={fileName} onFileChange={fileChange} onStrength={onStrengthChange} strength={strength} onPress={onPressGo} />
+          <Imagestyles cards={cards} onAddActive={addActive} activeId={activeId} activeName={activeName} />
         </div>
       </div>
     </NextUIProvider>

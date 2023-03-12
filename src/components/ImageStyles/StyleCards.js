@@ -1,21 +1,4 @@
-import { useState, useEffect } from 'react';
-
-const API_URL = 'http://omdbapi.com?apikey=7ab3fcf5';
-
-const StyleCards = () => {
-    const [cards, setCards] = useState([]);
-    
-    //USING OMDB API
-    const searchMovies = async (title) => {
-        const response = await fetch(`${API_URL}&s=${title}`)
-        const data = await response.json();
-        setCards(data.Search);
-    }
-    useEffect(() => {
-        searchMovies('Cyber');
-    }, []);
-
-    const [activeId, setActiveId] = useState();
+const StyleCards = ({ cards, onAddActive, activeId }) => {
 
     return (
         <div className="image-style-list">
@@ -23,9 +6,9 @@ const StyleCards = () => {
                 cards?.length > 0 ? (
                     cards.map((item) => (
                         <div key={item.imdbID} className='image-cutter '>
-                            <div onClick={() => setActiveId(item.imdbID)}
+                            <div onClick={() => onAddActive(item.imdbID, item.Title)}
                                 className={`style-card ${activeId === item.imdbID ? "active" : "inactive"}`}
-                                
+
                             >
                                 <img src={item.Poster !== 'N/A' ? item.Poster : 'https://via.placeholder.com/200'} alt={item.Year} />
                                 <div className="style-card-name">
@@ -34,7 +17,7 @@ const StyleCards = () => {
                             </div>
                         </div>
                     ))
-                ):(<p>Something went wrong. No Styles!</p>)
+                ) : (<p>Something went wrong. No Styles!</p>)
             }
         </div>
     )

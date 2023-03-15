@@ -6,7 +6,7 @@ import { MoonIcon } from './ButtonsAndIcons/MoonIcon.js';
 import logo from '../logo.svg';
 
 
-const Header = () => {
+const Header = ({onPressGoParty}) => {
     const darkMode = useDarkMode(false);
 
     return (
@@ -20,10 +20,10 @@ const Header = () => {
                         iconOn={<MoonIcon filled />}
                         iconOff={<SunIcon filled />}
                     />
-                    <Button as="a" size={{'@xsMax': 'xs','@xsMin':'md'}} target="_blank" href="https://nextui.org/docs/guide/getting-started" css={{
+                    <Button as="a" size={{'@xsMax': 'xs','@xsMin':'sm'}} target="_blank" css={{
                         background: '$purple700',
-                        color: '$white'
-                    }}>Try our multitool</Button>
+                        color: '$white',
+                    }} onPress={onPressGoParty}>Go Party</Button>
 
                     </div>
                 </div>

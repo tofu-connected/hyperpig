@@ -18,7 +18,7 @@ const ImageContainer = ({orient, src, prompt}) => {
                         <Button icon={<ShareIcon fill="#fff" />} color="$white" css={{ borderRadius: '$xs', border: 'transparent solid 2px', backgroundColor: "transparent", color: '$white' }} auto ghost></Button>
                     </Popover.Trigger>
                     <Popover.Content css={{ backgroundColor: "rgba(32, 25, 37, 0.5)", border: "2px solid $white", marginLeft: "20px", }}>
-                        <Share />
+                        <Share />''
                     </Popover.Content>
                 </Popover>
             </div>
@@ -29,5 +29,7 @@ const ImageContainer = ({orient, src, prompt}) => {
         </div>
     )
 }
-
+ImageContainer.defaultProps = {
+    orient: 'notvertical',
+}
 export default ImageContainer

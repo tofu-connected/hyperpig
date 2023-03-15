@@ -3,7 +3,7 @@
 }
 @media (min-width: 960px) {
     .image-style {
-        margin-top: 2.2vh; 
+        margin-top: 5.4vh;
         align-self: flex-start;
         justify-self: flex-start;
     }
@@ -15,6 +15,7 @@
         overflow-y: hidden;
         width: 95%;
         margin-top: -25px;
+        height: 100%;
     }
 }
 
@@ -54,13 +55,13 @@
     .image-style-list {
         display: flex;
         column-gap: 10px;
-        height: calc(100% - 15px);
+        height: calc(100% - 10px);
         min-height: 70px;
         overflow-x: scroll;
         overflow-y: hidden;
     }
     .image-style-wrap {
-        height: 123px;
+        height: 79%;
     }
 }
 @media (min-width: 650px) and (max-width: 960px) {
@@ -93,7 +94,7 @@
 
 @media (max-width: 960px) {
     .image-cutter {
-        min-width: 0;
+        /* min-width: 0; */
         height: 100%;
         width: auto; 
     }

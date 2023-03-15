@@ -50,6 +50,13 @@ export async function runInference(payload) {
   return getBlob(outputBase64);
 }
 
+export async function runFishInference() {
+  console.log(`Running fish inference...`)
+  console.log(...arguments);
+  const response = await fetch(`https://picsum.photos/1024/1024`);
+  return response.blob();
+}
+
 export async function blobToBase64(blob) {
   return new Promise(resolve => {
     const reader = new FileReader();

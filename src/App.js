@@ -1,3 +1,5 @@
+import { searchMovies, getBlob, genFish, runInference, blobToBase64 } from './hyperlib';
+
 import { useState, useEffect } from 'react';
 import { NextUIProvider } from '@nextui-org/react';
 import { darkTheme, lightTheme } from './components/Themes';
@@ -8,7 +10,6 @@ import Header from './components/Header';
 import CreatedImagesGallery from './components/CreatedImagesGallery/CreatedImagesGallery.js';
 import GenerationSettings from './components/GenerationSettings/GenerationSettings';
 import Imagestyles from './components/ImageStyles/Imagestyles';
-const API_URL = 'http://omdbapi.com?apikey=7ab3fcf5';
 
 const globalStyles = globalCss({
   body: { letterSpacing: "0.3px" },
@@ -16,19 +17,40 @@ const globalStyles = globalCss({
 });
 
 function App(props) {
-
   const darkMode = useDarkMode(false);
   globalStyles();
-  
+
+  // State Setup
   const [strength, setStrength] = useState(500);
-  const onStrengthChange = (e) => {
+  const [selectedFileUrl, setSelectedFileUrl] = useState();
+  const [fileName, setFileName] = useState('Choose File');
+  const [cards, setCards] = useState([]);
+  const [generatedImages, setGeneratedImages] = useState(genFish());
+  const [activeId, setActiveId] = useState();
+  const [activeName, setActiveName] = useState();
+
+  useEffect(() => {
+    const res = searchMovies('Cyber');
+    setCards(res);
+  }, []);
+
+  const addActive = (id, name) => {
+    setActiveId(id);
+    setActiveName(name);
+    console.log(`activeId ${id} name ${name}`);
+  }
+
+  const addGeneratedImages = src => {
+    const imgs = [...generatedImages];
+    imgs.unshift({ src })
+    setGeneratedImages(imgs);
+  }
+
+  const onStrengthChange = e => {
     setStrength(e.target.value)
   }
 
-  const [selectedFileUrl, setSelectedFileUrl] = useState();
-  const [fileName, setFileName] = useState('Choose File');
-
-  const fileChange = (e) => {
+  const fileChange = e => {
     if (e.target.files.length !== 0) {
       const file = e.target.files[0];
       setSelectedFileUrl(URL.createObjectURL(file));
@@ -36,54 +58,27 @@ function App(props) {
     }
   };
 
-  //Image Styles
-  const [cards, setCards] = useState([]);
+  async function onPressGo() {
+    const inputBlob = await getBlob(selectedFileUrl);
 
-    //using OMDB API
-  const searchMovies = async (title) => {
-    const response = await fetch(`${API_URL}&s=${title}`)
-    const data = await response.json();
-    setCards(data.Search);
-  }
-  useEffect(() => {
-    searchMovies('Cyber');
-  }, []);  
-  const [activeId, setActiveId] = useState();
-  const [activeName, setActiveName] = useState();
+    const outputBlob = await runInference({
+      prompt: "",
+      init_images: [
+        await blobToBase64(inputBlob)
+      ],
 
-  const addActive = (id, name) => {
-    setActiveId(id);
-    setActiveName(name);
-    console.log(`activeId ${id} name ${name}`);
-  }
-  //End Image Styles
+      width: 512,
+      height: 512,
 
-  const onPressGo = async () => {
-
-    // get an image selected by user 
-    console.log(selectedFileUrl);
-    let response = await fetch(selectedFileUrl); // TODO: does not work (sends default image for now)
-    const imageBlob = await response.blob();
-
-    // make a request to a backend server, result image is returned in response
-    const query = new URLSearchParams({ prompt: 'cartoon dragon', strength: '0.7' }).toString();
-    response = await fetch(`http://localhost:5000/?${query}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'image/png',
-        'Content-Length': imageBlob.length,
-        'Cache-Control': 'no-cache',
-      },
-      body: imageBlob,
+      sampler_name: "Euler a",
+      steps: 20,
+      cfg_scale: 0,
+      denoising_strength: strength / 1000,
     });
 
-    /* TODO: handle returned image */
-    const outputBlob = await response.blob();
-    //window.activeImg = 'test'
     setSelectedFileUrl(URL.createObjectURL(outputBlob));
-    console.log(selectedFileUrl);
+    addGeneratedImages(URL.createObjectURL(outputBlob));
 
-    //partytestdata
     console.log(`Go is pressed & the value of strength is ${strength} and selectedfileUrl ${selectedFileUrl}`);
   };
 
@@ -92,7 +87,7 @@ function App(props) {
       <div className="body">
         <div className="wrapper">
           <Header />
-          <CreatedImagesGallery selectedFileUrl={selectedFileUrl} fileName={fileName} onFileChange={fileChange} />
+          <CreatedImagesGallery generatedImages={generatedImages} selectedFileUrl={selectedFileUrl} fileName={fileName} onFileChange={fileChange} />
           <GenerationSettings selectedFileUrl={selectedFileUrl} fileName={fileName} onFileChange={fileChange} onStrength={onStrengthChange} strength={strength} onPress={onPressGo} />
           <Imagestyles cards={cards} onAddActive={addActive} activeId={activeId} activeName={activeName} />
         </div>

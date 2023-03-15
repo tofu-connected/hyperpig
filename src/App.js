@@ -29,9 +29,9 @@ function App(props) {
   const [activeId, setActiveId] = useState();
   const [activeName, setActiveName] = useState();
 
-  useEffect(async () => {
-    const res = await searchMovies('Cyber');
-    setCards(res);
+  useEffect(() => {
+    searchMovies('Cyber')
+      .then(res => setCards(res));
   }, []);
 
   const addActive = (id, name) => {

@@ -1,4 +1,4 @@
-import { searchMovies, getBlob, genFish, runInference, blobToBase64 } from './hyperlib';
+import { searchMovies, getBlob, runInference, blobToBase64 } from './hyperlib';
 
 import { useState, useEffect } from 'react';
 import { NextUIProvider } from '@nextui-org/react';
@@ -25,12 +25,12 @@ function App(props) {
   const [selectedFileUrl, setSelectedFileUrl] = useState();
   const [fileName, setFileName] = useState('Choose File');
   const [cards, setCards] = useState([]);
-  const [generatedImages, setGeneratedImages] = useState(genFish());
+  const [generatedImages, setGeneratedImages] = useState([]);
   const [activeId, setActiveId] = useState();
   const [activeName, setActiveName] = useState();
 
-  useEffect(() => {
-    const res = searchMovies('Cyber');
+  useEffect(async () => {
+    const res = await searchMovies('Cyber');
     setCards(res);
   }, []);
 
@@ -53,6 +53,8 @@ function App(props) {
   const fileChange = e => {
     if (e.target.files.length !== 0) {
       const file = e.target.files[0];
+      if (selectedFileUrl !== undefined)
+        addGeneratedImages(selectedFileUrl);
       setSelectedFileUrl(URL.createObjectURL(file));
       setFileName(file.name);
     }
@@ -77,7 +79,6 @@ function App(props) {
     });
 
     setSelectedFileUrl(URL.createObjectURL(outputBlob));
-    addGeneratedImages(URL.createObjectURL(outputBlob));
 
     console.log(`Go is pressed & the value of strength is ${strength} and selectedfileUrl ${selectedFileUrl}`);
   };

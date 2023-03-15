@@ -16,7 +16,7 @@ export async function getBlob(url) {
   return response.blob();
 }
 
-export function genFish() {
+/* export function genFish() {
   function importAll(r) {
     let images = {};
     r.keys().map((item) => (images[item.replace('./', '')] = r(item)));
@@ -34,7 +34,7 @@ export function genFish() {
     src: images["13.jpg"],
     orientation: "notvertical"
   }]
-}
+} */
 
 export async function runInference(payload) {
   const response = await fetch(`http://127.0.0.1:7860/sdapi/v1/img2img`, {

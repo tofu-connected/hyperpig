@@ -10,7 +10,7 @@ export default function AddImage({ onFileChange, selectedFileUrl, fileName }) {
                     onChange={(e) => onFileChange(e)}
                     title={fileName}
                     name="uploadimage"
-                    accept="image/png, image/gif, image/jpeg"                    
+                    accept="image/png, image/gif, image/jpeg"
                 />
             </label>
             <img className="loaded-image" alt="" src={selectedFileUrl} />

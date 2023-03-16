@@ -3,10 +3,10 @@ import { Modal, Image, Link, Button, Popover } from '@nextui-org/react';
 import { Share } from '../TooltipsAndPopovers/Share';
 import { ShareIcon } from '../ButtonsAndIcons/ShareIcon.js';
 
-const ImageContainer = ({orient, src, prompt}) => {
+const ImageContainer = ({ orient, src, prompt }) => {
     const [visible, setVisible] = useState(false);
     const openHandler = () => setVisible(true);
-    
+
     const closeHandler = () => {
         setVisible(false);
     };
@@ -24,7 +24,7 @@ const ImageContainer = ({orient, src, prompt}) => {
             </div>
             <Link css={{ '&:hover': { "opacity": 1 } }} onPress={openHandler}><Image src={src} alt={prompt} /></Link>
             <Modal width="90%" noPadding open={visible} onClose={closeHandler}>
-                <Image css={{height: "auto", maxHeight: "90vh", objectFit: "scale-down"}} src={src} alt={prompt} />
+                <Image css={{ height: "auto", maxHeight: "90vh", objectFit: "scale-down" }} src={src} alt={prompt} />
             </Modal>
         </div>
     )

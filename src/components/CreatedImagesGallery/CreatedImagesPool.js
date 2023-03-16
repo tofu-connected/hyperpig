@@ -9,8 +9,8 @@ const CreatedImagesPool = ({
 }) => {
     return (
         <div className="images-pool">
-            {showAddImage && <AddImage onFileChange={onFileChange} selectedFileUrl={selectedFileUrl} fileName={fileName}/>}
-            {generatedImages.length > 0 && 
+            {showAddImage && <AddImage onFileChange={onFileChange} selectedFileUrl={selectedFileUrl} fileName={fileName} />}
+            {generatedImages.length > 0 &&
                 generatedImages.map((item, index) => {
                     return (
                         <ImageContainer
@@ -20,7 +20,7 @@ const CreatedImagesPool = ({
                         />
                     );
                 })
-            
+
             }
         </div>
     );

@@ -1,6 +1,6 @@
 import { searchMovies, getBlob, runFishInference, blobToBase64 } from "./hyperlib";
 
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { NextUIProvider } from "@nextui-org/react";
 import { darkTheme, lightTheme } from "./components/Themes";
 import useDarkMode from "@fisch0920/use-dark-mode";
@@ -40,28 +40,27 @@ function App() {
     setActiveName(name);
   };
 
-  //& Generated Images
-    const randomImage = async (selectedFileUrl) => {
-      const inputBlob = await getBlob(selectedFileUrl);
-  
-      const outputBlob = await runFishInference({
-        prompt: "",
-        init_images: [await blobToBase64(inputBlob)],
-  
-        width: 512,
-        height: 512,
-  
-        sampler_name: "Euler a",
-        steps: 20,
-        cfg_scale: 0,
-        denoising_strength: strength / 1000,
-      });    
-      setGeneratedImage(URL.createObjectURL(outputBlob));
-    }
+  //& Generated Images 
+  const randomImage = async (selectedFileUrl) => {
+    const inputBlob = await getBlob(selectedFileUrl);
 
+    const outputBlob = await runFishInference({
+      prompt: "",
+      init_images: [await blobToBase64(inputBlob)],
+
+      width: 512,
+      height: 512,
+
+      sampler_name: "Euler a",
+      steps: 20,
+      cfg_scale: 0,
+      denoising_strength: strength / 1000,
+    });
+    setGeneratedImage(URL.createObjectURL(outputBlob));
+  }
   const addGeneratedImage = () => {
     randomImage()
-    console.log(`generated image ${generatedImage}`);
+    console.log(`generated image ${generatedImage}`); //undefined for the first time
     const newGeneratedData = {
       prompt: activeName,
       src: generatedImage,
@@ -90,7 +89,6 @@ function App() {
       setShowAddImage(true);
     }
   };
-  //& BIG Add New File
 
 
   async function onPressGo() {
@@ -127,7 +125,7 @@ function App() {
             fileName={fileName}
             onFileChange={fileChange}
             showAddImage={showAddImage}
-            
+
           />
           <GenerationSettings
             selectedFileUrl={selectedFileUrl}

@@ -11,7 +11,7 @@ const ImageContainer = ({orient, src, prompt}) => {
         setVisible(false);
     };
     return (
-        <div className={"img-wrap " +  orient }>
+        <div className={"img-wrap"}>
             <div className="share-wrap">
                 <Popover placement={'left-top'}>
                     <Popover.Trigger>
@@ -28,8 +28,5 @@ const ImageContainer = ({orient, src, prompt}) => {
             </Modal>
         </div>
     )
-}
-ImageContainer.defaultProps = {
-    orient: 'notvertical',
 }
 export default ImageContainer

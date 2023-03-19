@@ -1,7 +1,7 @@
 import CreatedImagesPool from './CreatedImagesPool';
 import { ImageRatioButton } from '../ButtonsAndIcons/ImageRatioButton';
 
-const CreatedImagesGallery = ({ generatedImages, onFileChange, selectedFileUrl, fileName, showAddImage }) => {
+const CreatedImagesGallery = ({ generatedImages, onFileChange, selectedFileUrl, fileName, showAddImage, showLoading }) => {
   return (
     <div className="transformed-images">
       <CreatedImagesPool
@@ -10,6 +10,7 @@ const CreatedImagesGallery = ({ generatedImages, onFileChange, selectedFileUrl, 
         selectedFileUrl={selectedFileUrl}
         fileName={fileName}
         showAddImage={showAddImage}
+        showLoading={showLoading}
       />
       <ImageRatioButton />
     </div>

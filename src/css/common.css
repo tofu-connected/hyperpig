@@ -2,7 +2,9 @@
     --dark-purple-color: #201925;
     --grey-color: #B2A8B8;
     --white-color: #FFFFFF; 
-    --transparent-black-color: rgba(32, 25, 37, 0.5);   
+    --transparent-black-color: rgba(32, 25, 37, 0.5);
+    
+   
   
     --big-border-radius: 8px;
     --small-border-radius: 4px;    
@@ -16,9 +18,17 @@
   }
   .light-mode {
     --purple-color: #6622AA;
+    --purple50: rgb(247, 242, 253);
+    --purple200: rgb(234, 220, 248);
+    --purple200a: rgba(234, 220, 248, 0.7);
   }
+  
   .dark-mode {
     --purple-color: #9750DD;
+    --purple50: rgb(31, 10, 51);
+    --purple200: rgb(46, 15, 77);
+    --purple200a: rgba(46, 15, 77, 0.5);
+
   }
   @media (min-width: 960px) {
     :root {

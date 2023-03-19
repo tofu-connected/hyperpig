@@ -30,6 +30,7 @@ function App() {
   const [activeName, setActiveName] = useState();
   const [generatedImage, setGeneratedImage] = useState();
   const [showAddImage, setShowAddImage] = useState(true);
+  const [showLoading, setShowLoading] = useState(false)
 
   useEffect(() => {
     searchMovies("Cyber").then((res) => setCards(res));
@@ -42,6 +43,7 @@ function App() {
 
   //& Generated Images 
   const randomImage = async (selectedFileUrl) => {
+    setShowLoading(true);
     const inputBlob = await getBlob(selectedFileUrl);
 
     const outputBlob = await runFishInference({
@@ -59,6 +61,7 @@ function App() {
     setGeneratedImage(URL.createObjectURL(outputBlob));
   }
   const addGeneratedImage = () => {
+    
     randomImage()
     console.log(`generated image ${generatedImage}`); //undefined for the first time
     const newGeneratedData = {
@@ -69,6 +72,7 @@ function App() {
     setGeneratedImages(generatedImages => ([newGeneratedData, ...generatedImages]));
 
     setShowAddImage(false);
+    setShowLoading(false);
 
     console.log(`generatedImages ${generatedImages.toString}`)
     console.log(`Party Go is pressed & the value of strength is ${strength} and selectedfileUrl ${selectedFileUrl} activeId ${activeId} name ${activeName}`);
@@ -125,6 +129,7 @@ function App() {
             fileName={fileName}
             onFileChange={fileChange}
             showAddImage={showAddImage}
+            showLoading={showLoading}
 
           />
           <GenerationSettings

@@ -30,7 +30,8 @@ function App() {
   const [activeName, setActiveName] = useState();
   const [generatedImage, setGeneratedImage] = useState();
   const [showAddImage, setShowAddImage] = useState(true);
-  const [showLoading, setShowLoading] = useState(false)
+  const [showLoading, setShowLoading] = useState(false);
+  const [allRequirements, setAllrequirements] = useState(true);
 
   useEffect(() => {
     searchMovies("Cyber").then((res) => setCards(res));
@@ -60,8 +61,7 @@ function App() {
     });
     setGeneratedImage(URL.createObjectURL(outputBlob));
   }
-  const addGeneratedImage = () => {
-    
+  const addGeneratedImage = () => {    
     randomImage()
     console.log(`generated image ${generatedImage}`); //undefined for the first time
     const newGeneratedData = {
@@ -139,6 +139,8 @@ function App() {
             onStrength={onStrengthChange}
             strength={strength}
             onPress={onPressGo}
+            showLoading={showLoading}
+            allRequirements={allRequirements}
           />
           <Imagestyles
             cards={cards}

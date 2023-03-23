@@ -19,8 +19,8 @@ const CreatedImagesPool = ({
                         return (
                             <ImageContainer
                                 key={index}
-                                src={item.src}
-                                prompt={item.prompt}
+                                mysrc={item.mysrc}
+                                myprompt={item.myprompt}
                             />
                         );
                     })

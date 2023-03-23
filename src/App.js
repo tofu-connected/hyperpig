@@ -28,7 +28,6 @@ function App() {
   const [generatedImages, setGeneratedImages] = useState([]);
   const [activeId, setActiveId] = useState();
   const [activeName, setActiveName] = useState();
-  const [generatedImage, setGeneratedImage] = useState();
   const [showAddImage, setShowAddImage] = useState(true);
   const [showLoading, setShowLoading] = useState(false);
   const [allRequirements, setAllrequirements] = useState(true);
@@ -42,7 +41,8 @@ function App() {
     setActiveName(name);
   };
 
-  //& Generated Images 
+  //& Generated Images  
+
   const randomImage = async (selectedFileUrl) => {
     setShowLoading(true);
     const inputBlob = await getBlob(selectedFileUrl);
@@ -59,14 +59,14 @@ function App() {
       cfg_scale: 0,
       denoising_strength: strength / 1000,
     });
-    setGeneratedImage(URL.createObjectURL(outputBlob));
+    return URL.createObjectURL(outputBlob);
   }
-  const addGeneratedImage = () => {    
-    randomImage()
-    console.log(`generated image ${generatedImage}`); //undefined for the first time
+  const addGeneratedImage = async () => {    
+    const genImg = await randomImage(selectedFileUrl)
+    console.log(`generated image ${genImg}`); //undefined for the first time
     const newGeneratedData = {
       prompt: activeName,
-      src: generatedImage,
+      mysrc: genImg,
     };
 
     setGeneratedImages(generatedImages => ([newGeneratedData, ...generatedImages]));
@@ -77,7 +77,6 @@ function App() {
     console.log(`generatedImages ${generatedImages.toString}`)
     console.log(`Party Go is pressed & the value of strength is ${strength} and selectedfileUrl ${selectedFileUrl} activeId ${activeId} name ${activeName}`);
   };
-
 
   const onStrengthChange = (e) => {
     setStrength(e.target.value);

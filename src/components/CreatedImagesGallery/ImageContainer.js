@@ -4,7 +4,7 @@ import { Share } from '../TooltipsAndPopovers/Share';
 import { ShareIcon } from '../ButtonsAndIcons/ShareIcon.js';
 
 
-const ImageContainer = ({ orient, src, prompt }) => {
+const ImageContainer = ({ mysrc, myprompt }) => {
     const [visible, setVisible] = useState(false);
     const openHandler = () => setVisible(true);
 
@@ -24,9 +24,9 @@ const ImageContainer = ({ orient, src, prompt }) => {
                     </Popover.Content>
                 </Popover>
             </div>
-            <Link css={{ '&:hover': { "opacity": 1 } }} onClick={openHandler}><Image src={src} alt={prompt} /></Link>
+            <Link css={{ '&:hover': { "opacity": 1 } }} onClick={openHandler}><Image src={mysrc} alt={myprompt} /></Link>
             <Modal width="max-content" css="height: max-content, maxHeight: 90%, maxWidth: 90%" open={visible} onClose={closeHandler}>
-                <Image css={{ height: "auto", maxHeight: "90vh", maxWidth: "90vw", objectFit: "scale-down" }} src={src} alt={prompt} />
+                <Image css={{ height: "auto", maxHeight: "90vh", maxWidth: "90vw", objectFit: "scale-down" }} src={mysrc} alt={myprompt} />
             </Modal>
         </div>
     )

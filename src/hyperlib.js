@@ -36,18 +36,32 @@ export async function getBlob(url) {
   }]
 } */
 
-export async function runInference(payload) {
-  const response = await fetch(`http://127.0.0.1:7860/sdapi/v1/img2img`, {
+export async function runInference(params) {
+
+  const serverUrl = `http://127.0.0.1:7860/sdapi/v1/img2img`;
+
+  const inputBlob = await getBlob(params.img_url);
+
+  const response = await fetch(serverUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'accept': 'application/json'
     },
-    body: JSON.stringify(payload)
+    body: JSON.stringify({
+      prompt: "",
+      init_images: [await blobToBase64(inputBlob)],
+      sampler_name: "Euler a",
+      steps: 20,
+      cfg_scale: 0,
+      denoising_strength: params.strength / 100,
+    })
   });
+
   const responseData = await response.json();
+
   const outputBase64 = `data:image/jpeg;base64,${responseData.images[0]}`;
-  return getBlob(outputBase64);
+  return URL.createObjectURL(await getBlob(outputBase64));
 }
 
 export async function runFishInference() {

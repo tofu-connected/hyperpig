@@ -1,4 +1,4 @@
-import { searchMovies, getBlob, runFishInference, blobToBase64 } from "./hyperlib";
+import { searchMovies, getBlob, runInference, runFishInference, blobToBase64 } from "./hyperlib";
 
 import { useState, useEffect } from "react";
 import { NextUIProvider } from "@nextui-org/react";
@@ -21,7 +21,7 @@ function App() {
   globalStyles();
 
   // State Setup
-  const [strength, setStrength] = useState(500);
+  const [strength, setStrength] = useState(50);
   const [selectedFileUrl, setSelectedFileUrl] = useState();
   const [fileName, setFileName] = useState("Choose File");
   const [cards, setCards] = useState([]);
@@ -44,7 +44,7 @@ function App() {
   //& Generated Images  
 
   const randomImage = async (selectedFileUrl) => {
-    setShowLoading(true);
+
     const inputBlob = await getBlob(selectedFileUrl);
 
     const outputBlob = await runFishInference({
@@ -61,12 +61,14 @@ function App() {
     });
     return URL.createObjectURL(outputBlob);
   }
+
   const addGeneratedImage = async () => {    
-    const genImg = await randomImage(selectedFileUrl)
-    console.log(`generated image ${genImg}`); //undefined for the first time
+    setShowLoading(true);
+    const generatedImg = await randomImage(selectedFileUrl)
+
     const newGeneratedData = {
       prompt: activeName,
-      mysrc: genImg,
+      mysrc: generatedImg,
     };
 
     setGeneratedImages(generatedImages => ([newGeneratedData, ...generatedImages]));
@@ -95,26 +97,23 @@ function App() {
 
 
   async function onPressGo() {
-    const inputBlob = await getBlob(selectedFileUrl);
+    if (!selectedFileUrl) return;
 
-    const outputBlob = await runFishInference({
-      prompt: "",
-      init_images: [await blobToBase64(inputBlob)],
+    setShowLoading(true);
 
-      width: 512,
-      height: 512,
+    console.log(selectedFileUrl);
 
-      sampler_name: "Euler a",
-      steps: 20,
-      cfg_scale: 0,
-      denoising_strength: strength / 1000,
-    });
+    const generatedImg = await runInference({img_url: selectedFileUrl, strength: strength});
 
-    setSelectedFileUrl(URL.createObjectURL(outputBlob));
+    const newGeneratedData = {
+      prompt: activeName,
+      mysrc: generatedImg,
+    };
 
-    console.log(
-      `Go is pressed & the value of strength is ${strength} and selectedfileUrl ${selectedFileUrl}`
-    );
+    setGeneratedImages(generatedImages => ([newGeneratedData, ...generatedImages]));
+
+    setShowAddImage(false);
+    setShowLoading(false);
   }
 
   return (

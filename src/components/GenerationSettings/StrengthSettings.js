@@ -15,7 +15,7 @@ export default function StrenghtSettings({ onStrength,children, strength }) {
                     <Text color="secondary">STRENGTH</Text>
                 </Link>
             </Tooltip>
-            <input type="range" min="0" max="1000" value= { strength } onChange = { onStrength } title = {strength} />
+            <input type="range" min="0" max="100" step="10" value= { strength } onChange = { onStrength } title = {strength} />
             {children}
         </div>
     )

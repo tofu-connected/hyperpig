@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { Modal, Image, Link, Button, Popover} from '@nextui-org/react';
+import { useState} from 'react';
+import { Modal, Image, Link, Button, Popover } from '@nextui-org/react';
 import { Share } from '../TooltipsAndPopovers/Share';
 import { ShareIcon } from '../ButtonsAndIcons/ShareIcon.js';
 
 
-const ImageContainer = ({ mysrc, myprompt }) => {
+const ImageContainer = ({ mysrc, myprompt}) => {
     const [visible, setVisible] = useState(false);
     const openHandler = () => setVisible(true);
 
@@ -12,6 +12,7 @@ const ImageContainer = ({ mysrc, myprompt }) => {
         setVisible(false);
     };
     
+
     return (
         <div className={"img-wrap"}>
             <div className="share-wrap">

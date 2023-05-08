@@ -243,11 +243,12 @@
     justify-content: center;
     align-items: center;
 }
+
 .loading-wrapper {
     position:absolute;
     top: 3px;
     left: 3px;
-    right: 19px;
+    
     bottom: 3px;
     background-color: rgba();
     display: flex;
@@ -256,4 +257,14 @@
     z-index: 5000;
     border-radius: var(--big-border-radius);
     background-color: var(--purple200a);
+}
+@media (min-width: 650px) {
+    .loading-wrapper {
+        right: 19px;
+    }   
+}
+@media (max-width: 650px) {
+    .loading-wrapper {
+        right: 3px;
+    }
 }

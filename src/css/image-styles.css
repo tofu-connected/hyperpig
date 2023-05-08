@@ -41,7 +41,7 @@
     .image-style-list {
         display: grid;
         aspect-ratio: 400/735;
-        gap: 15px 15px; 
+        gap: 2.5% 5%;
         grid-template-columns: 1fr 1fr;
         justify-content: center;                
         max-height: calc(var(--my-max-height) + 70px);         

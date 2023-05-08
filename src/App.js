@@ -78,7 +78,7 @@ function App() {
 
     console.log(`generatedImages ${generatedImages.toString}`)
     console.log(`Party Go is pressed & the value of strength is ${strength} and selectedfileUrl ${selectedFileUrl} activeId ${activeId} name ${activeName}`);
-  };
+  }; 
 
   const onStrengthChange = (e) => {
     setStrength(e.target.value);

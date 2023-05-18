@@ -20,7 +20,10 @@ export const darkTheme = createTheme({
             link: '#5E1DAD',
 
             // you can also create your own color
-            myColor: '#201925'
+            myColor: '#201925',
+            backgroundColor: '#201925',
+            grayBorderColor: '#B2A8B8',
+            accentColor: '#9750DD'
 
             // ...  more colors
         },
@@ -54,8 +57,10 @@ export const lightTheme = createTheme({
             link: '#5E1DAD',
 
             // you can also create your own color
-            myColor: '#201925'
-
+            myColor: '#201925',
+            backgroundColor: '#fff',
+            grayBorderColor: '#B2A8B8',
+            accentColor: "#7828C8"
             // ...  more colors
         },
         fonts: {

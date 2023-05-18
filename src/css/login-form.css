@@ -1,0 +1,14 @@
+.login-form-wrapper {
+    padding: 15px 20px;
+    max-width: 300px;
+    
+}
+.login-form-wrapper input, .nextui-input-helper-text {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+.login-form {
+    display: flex;
+    flex-direction: column;    
+    gap: 25px;
+    
+}

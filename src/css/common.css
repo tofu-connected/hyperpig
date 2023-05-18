@@ -139,7 +139,7 @@
     border-color: var(--white-color);
   }
   .light-theme .transformed-images::after, .light-theme .image-style-wrap::after {
-    border-color: var(--dark-purple-color);
+    border-color: var(--grey-color);
   }
   
   .wrapper > * {

@@ -6,7 +6,7 @@ export async function searchMovies(title) {
     apikey: OMDB_API_KEY,
     s: title
   }).toString();
-  const response = await fetch(`http://omdbapi.com?${params}`);
+  const response = await fetch(`https://omdbapi.com?${params}`);
   const data = await response.json();
   return data.Search;
 }

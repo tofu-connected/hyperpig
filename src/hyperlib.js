@@ -38,7 +38,7 @@ export async function getBlob(url) {
 
 export async function runInference(params) {
 
-  const serverUrl = `http://127.0.0.1:7860/sdapi/v1/img2img`;
+  const serverUrl = `http://125.199.220.228:7860/sdapi/v1/img2img`;
 
   const inputBlob = await getBlob(params.img_url);
 

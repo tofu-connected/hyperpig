@@ -5,14 +5,14 @@ const StyleCards = ({ cards, onAddActive, activeId }) => {
             {
                 cards?.length > 0 ? (
                     cards.map((item) => (
-                        <div key={item.imdbID} className='image-cutter '>
-                            <div onClick={() => onAddActive(item.imdbID, item.Title)}
-                                className={`style-card ${activeId === item.imdbID ? "active" : "inactive"}`}
+                        <div key={item.id} className='image-cutter '>
+                            <div onClick={() => onAddActive(item.id, item.name)}
+                                className={`style-card ${activeId === item.id ? "active" : "inactive"}`}
 
                             >
-                                <img src={item.Poster !== 'N/A' ? item.Poster : 'https://via.placeholder.com/200'} alt={item.Year} />
+                                <img src={item.image_url !== 'N/A' ? item.image_url : 'https://via.placeholder.com/200'} alt={item.Year} />
                                 <div className="style-card-name">
-                                    {item.Title}
+                                    {item.name}
                                 </div>
                             </div>
                         </div>

@@ -1,4 +1,4 @@
-import { searchMovies, getBlob, runInference, runFishInference, blobToBase64 } from "./hyperlib";
+import { searchMovies, getStyles, updateCards, getBlob, img2img, runFishInference, blobToBase64 } from "./hyperlib";
 
 import { useState, useEffect } from "react";
 import { darkTheme, lightTheme } from "./components/Themes";
@@ -26,6 +26,7 @@ function App() {
   const [strength, setStrength] = useState(50);
   const [selectedFileUrl, setSelectedFileUrl] = useState();
   const [fileName, setFileName] = useState("Choose File");
+  const [styles, setStyles] = useState([]);
   const [cards, setCards] = useState([]);
   const [generatedImages, setGeneratedImages] = useState([]);
   const [activeId, setActiveId] = useState();
@@ -38,10 +39,14 @@ function App() {
   const [userData, setUserData] = useState({ username: "", password: "", email: "" });
   const [loggedIn, setLoggedIn] = useState(false);
 
+  useEffect(() => {
+    // searchMovies("Cyber").then((res) => setCards(res));
+    getStyles().then((res) => setStyles(res));
+  }, []);
 
   useEffect(() => {
-    searchMovies("Cyber").then((res) => setCards(res));
-  }, []);
+    updateCards(styles, setCards);
+  }, [styles]);
 
   const addActive = (id, name) => {
     setActiveId(id);
@@ -131,7 +136,13 @@ function App() {
 
     console.log(selectedFileUrl);
 
-    const generatedImg = await runInference({ img_url: selectedFileUrl, strength: strength });
+    const generatedImg = 
+      await img2img({
+        img_url: selectedFileUrl, 
+        strength: strength,
+        // TODO style_id: styles[activeId].id
+        style: styles.find(style => style.id == activeId)
+      });
 
     const newGeneratedData = {
       prompt: activeName,

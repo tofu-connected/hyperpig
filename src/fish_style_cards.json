@@ -1,0 +1,16 @@
+[
+    {
+      "id": "1", 
+      "name": "CyberSwine",
+      "prompt": "cyberpunk, dark city, masterpiece, best quality", 
+      "negative_prompt": "(worst quality:1.2), (low quality:1.2), watermark, text copyright signature, cut out, cgi, bad anatomy, blurry, extra arms, extra fingers, poorly drawn hands, disfigured, tiling, deformed, mutated, out of frame",
+      "card_img": "./img/cyberpunk.png"
+    },
+    { 
+      "id": "2", 
+      "name": "Pigruto",
+      "prompt": "naruto, anime, from naruto, fine artwork, masterpiece, best quality", 
+      "negative_prompt": "(worst quality:1.2), (low quality:1.2), watermark, text copyright signature, cut out, cgi, bad anatomy, blurry, extra arms, extra fingers, poorly drawn hands, disfigured, tiling, deformed, mutated, out of frame",
+      "card_img": "./img/pigruto.png"
+    }
+]

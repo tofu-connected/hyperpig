@@ -10,7 +10,7 @@ const StyleCards = ({ cards, onAddActive, activeId }) => {
                                 className={`style-card ${activeId === item.id ? "active" : "inactive"}`}
 
                             >
-                                <img src={item.image_url !== 'N/A' ? item.image_url : 'https://via.placeholder.com/200'} alt={item.Year} />
+                                <img src={item.card_img} alt={item.name} />
                                 <div className="style-card-name">
                                     {item.name}
                                 </div>

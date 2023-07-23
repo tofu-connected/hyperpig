@@ -1,34 +1,8 @@
 const OMDB_API_KEY = "7ab3fcf5";
 
-//using OMDB API
-export async function searchMovies(title) {
-  const params = new URLSearchParams({
-    apikey: OMDB_API_KEY,
-    s: title
-  }).toString();
-  const response = await fetch(`https://omdbapi.com?${params}`);
-  const data = await response.json();
-  return data.Search;
-}
-
 export async function getStyles() {
   // TODO: request to backpig
-    return  [
-      {
-        id: "1", 
-        name: "CyberSwine",
-        prompt: "cyberpunk, dark city, masterpiece, best quality", 
-        negative_prompt:"bad quality, worst quality, mutation, extra limbs",
-        image_url:"https://m.media-amazon.com/images/M/MV5BMTc5NDQzOTc2N15BMl5BanBnXkFtZTcwNDI5MzI4Nw@@._V1_SX300.jpg"
-      },
-      { 
-        id: "2", 
-        name: "Pigruto",
-        prompt: "naruto, anime, from naruto, fine artwork, masterpiece, best quality", 
-        negative_prompt:"bad quality, worst quality, mutation, extra limbs",
-        image_url:"https://m.media-amazon.com/images/M/MV5BZWEzMzVkMmItMWQ4My00ODIzLTk2ZDMtN2I5NDY1ZjBmOTVkXkEyXkFqcGdeQXVyMTE0MzY0NjE1._V1_SX300.jpg"
-      }
-      ]
+  return;
 }
 
 export async function updateCards(styles, setCards) {
@@ -38,7 +12,7 @@ export async function updateCards(styles, setCards) {
           id: style.id,
           name: style.name,
           prompt: style.prompt,
-          image_url: style.image_url,
+          card_img: style.card_img,
         }
       }));
 }

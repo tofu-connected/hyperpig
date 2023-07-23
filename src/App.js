@@ -13,6 +13,8 @@ import ModalForm from "./components/UI/ModalForm";
 import RegistrationForm from "./components/TooltipsAndPopovers/RegistrationForm";
 import LoginForm from "./components/TooltipsAndPopovers/LoginForm";
 
+import fish_style_cards from "./fish_style_cards.json";
+
 const globalStyles = globalCss({
   body: { letterSpacing: "0.3px" },
   button: { letterSpacing: "0.5px" },
@@ -40,8 +42,8 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    // searchMovies("Cyber").then((res) => setCards(res));
-    getStyles().then((res) => setStyles(res));
+    // getStyles().then((res) => setStyles(res)); // TODO
+    setStyles(fish_style_cards);
   }, []);
 
   useEffect(() => {

@@ -13,6 +13,8 @@ import ModalForm from "./components/UI/ModalForm";
 import RegistrationForm from "./components/TooltipsAndPopovers/RegistrationForm";
 import LoginForm from "./components/TooltipsAndPopovers/LoginForm";
 
+import './css/StylesMin.css';
+
 import fish_style_cards from "./fish_style_cards.json";
 
 const globalStyles = globalCss({
